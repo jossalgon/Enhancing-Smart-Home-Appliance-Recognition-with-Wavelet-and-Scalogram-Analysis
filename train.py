@@ -77,12 +77,7 @@ def train_mlknn(path, valid_idx, daug=False):
     print(skm.classification_report(y_test, predictions.toarray(), target_names=labels))
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--path', type=str, help='Path of the generated data')
-    args = parser.parse_args()
-
-    path = Path(args.path)
+def main(path):
     for i in range(1, 7):
         train_cnn(path, i)
         train_cnn(path, i, daug=True)
@@ -90,4 +85,8 @@ def main():
         train_mlknn(path, i, daug=True)
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--path', type=str, help='Path of the generated data')
+    args = parser.parse_args()
+    path = Path(args.path)
+    main(path)
