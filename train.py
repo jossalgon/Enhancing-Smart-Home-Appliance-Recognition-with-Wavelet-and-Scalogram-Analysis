@@ -88,3 +88,6 @@ def main():
         train_cnn(path, i, daug=True)
         train_mlknn(path, i)
         train_mlknn(path, i, daug=True)
+
+if __name__ == '__main__':
+    main()
