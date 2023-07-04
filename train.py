@@ -46,8 +46,11 @@ def train_cnn(path, valid_idx, daug=False):
     learn = cnn_learner(dls, resnet50, metrics=partial(accuracy_multi, thresh=0.3))
     learn.fine_tune(20, base_lr=3e-3, freeze_epochs=4)
 
-    learn.save(f'valid{valid_idx}-cnn-4fepochs-20epochs-lr0_003')
-    
+    if daug:
+        learn.save(f'valid{valid_idx}-cnn-4fepochs-20epochs-lr0_003-daug')
+    else:
+        learn.save(f'valid{valid_idx}-cnn-4fepochs-20epochs-lr0_003')
+
     inp,preds,targs,decoded,losses = learn.get_preds(with_input=True, with_decoded=True, with_loss=True)
     print(skm.classification_report(targs, decoded, target_names=dls.vocab))
 
